@@ -5,7 +5,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 var routingControl = null; // Biến chứa điều hướng
-
+var selectedMarker = null; // Biến lưu lại marker khi chọn nhà hàng
+// Thông tin nhà hàng
 var restaurantInfo = [
     { name: "Phở Bò - Quán A", address: "123 Lê Lợi, Quận 1", latlng: [10.7769, 106.7009], rating: "★★★★★", price: "50.000 - 100.000 VND", image: "https://via.placeholder.com/80" },
     { name: "Bún Chả - Quán B", address: "456 Nguyễn Huệ, Quận 1", latlng: [10.7752, 106.7070], rating: "★★★★★", price: "40.000 - 80.000 VND", image: "https://via.placeholder.com/80" },
@@ -18,20 +19,23 @@ var restaurantInfo = [
     { name: "Lẩu Thái - Quán I", address: "678 Nguyễn Văn Trỗi, Quận Phú Nhuận", latlng: [10.7942, 106.6812], rating: "★★★★☆", price: "100.000 - 200.000 VND", image: "https://via.placeholder.com/80" },
     { name: "Mì Ý - Quán J", address: "789 Đinh Tiên Hoàng, Quận Bình Thạnh", latlng: [10.7723, 106.6949], rating: "★★★★☆", price: "50.000 - 120.000 VND", image: "https://via.placeholder.com/80" },
     { name: "Bánh Cuốn - Quán K", address: "123 Bà Huyện Thanh Quan, Quận 10", latlng: [10.7625, 106.6856], rating: "★★★★★", price: "20.000 - 50.000 VND", image: "https://via.placeholder.com/80" },
-    { name: "Gỏi Cuốn - Quán L", address: "789 Nguyễn Huệ, Quận 1", latlng: [10.7778, 106.6999], rating: "★★★★☆", price: "30.000 - 60.000 VND", image: "https://via.placeholder.com/80" }];
+    { name: "Gỏi Cuốn - Quán L", address: "789 Nguyễn Huệ, Quận 1", latlng: [10.7778, 106.6999], rating: "★★★★☆", price: "30.000 - 60.000 VND", image: "https://via.placeholder.com/80" }
+];
 
+// Thêm các marker cho nhà hàng lên bản đồ
 var markers = restaurantInfo.map((restaurant, index) => {
     var marker = L.marker(restaurant.latlng).bindPopup(`<b>${restaurant.name}</b><br>${restaurant.address}`);
     return marker;
 });
 
+// Xử lý sự kiện tìm kiếm nhà hàng
 document.querySelector('.sidebar input').addEventListener('input', function() {
     const query = this.value.toLowerCase().trim();
     const restaurantItems = document.querySelectorAll('.restaurant-item');
     let results = 0;
 
-    restaurantItems.forEach(item => {
-        const restaurantText = item.textContent.toLowerCase();
+    restaurantItems.forEach((item, index) => {
+        const restaurantText = restaurantInfo[index].name.toLowerCase();
         if (restaurantText.includes(query)) {
             item.style.display = 'flex';
             results++;
@@ -43,17 +47,27 @@ document.querySelector('.sidebar input').addEventListener('input', function() {
     document.getElementById('no-results').style.display = results === 0 ? 'block' : 'none';
 });
 
-// Chọn nhà hàng từ danh sách
+// Xử lý sự kiện chọn nhà hàng từ danh sách
 document.querySelectorAll('.restaurant-item').forEach(item => {
     item.addEventListener('click', function() {
         const index = this.getAttribute('data-index');
-        map.setView(markers[index].getLatLng(), 15);
-        markers[index].openPopup();
+        
+        // Xóa marker cũ nếu đã có
+        if (selectedMarker) {
+            map.removeLayer(selectedMarker);
+        }
+        
+        // Tạo một marker mới cho vị trí nhà hàng được chọn
+        selectedMarker = L.marker(restaurantInfo[index].latlng).addTo(map)
+            .bindPopup(`<b>${restaurantInfo[index].name}</b><br>${restaurantInfo[index].address}`)
+            .openPopup();
+        
+        map.setView(restaurantInfo[index].latlng, 15);
         showDetails(index); // Hiển thị chi tiết nhà hàng
     });
 });
 
-// Hiển thị thông tin chi tiết nhà hàng
+// Hiển thị chi tiết nhà hàng
 function showDetails(index) {
     const restaurant = restaurantInfo[index];
     document.getElementById('restaurantImage').src = restaurant.image;
