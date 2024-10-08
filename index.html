@@ -22,9 +22,11 @@
 </header>
 
 <div class="main-container">
+    <div class="search-input-container">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm món ăn...">
+    </div>
     <!-- Sidebar bên trái hiển thị danh sách nhà hàng -->
-    <div class="sidebar">
-        <input type="text" placeholder="Tìm kiếm món ăn...">
+    <div class="sidebar" id="sidebar">
         <div id="no-results">Không tìm thấy kết quả nào.</div>
 
         <!-- Danh sách các nhà hàng -->
@@ -174,15 +176,46 @@
             <p id="restaurantAddress"></p>
             <p id="restaurantRating"></p>
             <p id="restaurantPrice"></p>
-
-            <div class="action-buttons">
-                <button id="directionButton"><span class="material-icons">directions</span> Đường đi</button>
-                <button id="saveButton"><span class="material-icons">bookmark</span> Lưu</button>
-                <button id="sendToPhoneButton"><span class="material-icons">send</span> Gửi tới điện thoại</button>
-                <button id="shareButton"><span class="material-icons">share</span> Chia sẻ</button>
+        
+            <!-- Bắt đầu các tab -->
+            <div class="tab-container">
+                <button class="tab-button active" data-tab="overview">Tổng quan</button>
+                <button class="tab-button" data-tab="reviews">Bài đánh giá</button>
+                <button class="tab-button" data-tab="info">Giới thiệu</button>
+            </div>
+        
+            <!-- Nội dung của các tab -->
+            <div id="overview" class="tab-content active">
+                <!-- Các nút chức năng chỉ hiện trong phần Tổng quan -->
+                <div class="action-buttons">
+                    <button id="directionButton"><span class="material-icons">directions</span> Đường đi</button>
+                    <button id="saveButton"><span class="material-icons">bookmark</span> Lưu</button>
+                    <button id="sendToPhoneButton"><span class="material-icons">send</span> Gửi tới điện thoại</button>
+                    <button id="shareButton"><span class="material-icons">share</span> Chia sẻ</button>
+                </div>
+                <p id="restaurantHours"></p>
+                <ul>
+                    <li>✔️ Ăn tại chỗ</li>
+                    <li>✔️ Đồ ăn mang đi</li>
+                    <li>✔️ Giao hàng</li>
+                </ul>
+                <p id="restaurantLocation"></p>
+            </div>
+        
+            <div id="reviews" class="tab-content">
+                <!-- Nội dung đánh giá nhà hàng -->
+                <p>Chưa có bài đánh giá</p>
+            </div>
+        
+            <div id="info" class="tab-content">
+                <!-- Phần giới thiệu nhà hàng -->
+                <p>Thông tin giới thiệu nhà hàng sẽ được cập nhật sau.</p>
             </div>
         </div>
-
+        
+        
+        
+        
         <!-- Overlay làm mờ nền khi modal mở -->
         <div class="modal-overlay" id="modalOverlay"></div>
     </div>

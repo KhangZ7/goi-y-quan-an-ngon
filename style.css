@@ -33,37 +33,70 @@ header {
     padding-top: 70px;
 }
 
-/* Sidebar bên trái chứa danh sách nhà hàng */
-.sidebar {
-    position: fixed; /* Cố định vị trí sidebar */
-    top: 70px; /* Căn phía trên với header */
-    left: 0;
+/* Luôn hiển thị phần ô tìm kiếm */
+.search-input-container {
+    position: fixed;
+    top: 65px;
+    left: 20;
     width: 30%;
-    max-width: 400px;
-    height: calc(100% - 70px); /* Chiều cao cho phép cuộn */
+    max-width: 450px;
+    padding: 15px;
+    z-index: 1001;
+    box-shadow: none;
+
+}
+/* Định dạng ô tìm kiếm */
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #333; /* Thêm viền đậm hơn */
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    margin-left: 50px; /* Dịch sang phải 1 chút */
+    background-color: none; /* Nền trắng */
+    box-shadow: none;
+}
+/* Sidebar được làm mượt và bo góc */
+.sidebar {
+    display: none;
+    position: fixed;
+    top: 75px; 
+    left: 20;
+    width: 30%;
+    max-width: 450px;
+    height: calc(100% - 130px);
     background-color: white;
     border-right: 1px solid #ddd;
     padding: 20px;
     overflow-y: auto;
     z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    border-radius: 25px;
+    margin-left: 60px; /* Dịch sang phải một chút */
+}
+/* Hiển thị sidebar khi có kết quả tìm kiếm */
+.sidebar.active {
+    display: block;
+    transform: translateX(0);
 }
 
-/* Ô tìm kiếm nhà hàng */
-.sidebar input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-left: -5%; /* Đẩy thanh tìm kiếm sang trái một chút */
-    margin-bottom: 20px;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* Phần không tìm thấy kết quả */
+#no-results {
+    display: none;
+    font-size: 16px;
+    text-align: center;
+    color: #777;
+    margin-top: 20px;
 }
 
 /* Định dạng cho từng mục nhà hàng */
 .restaurant-item {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -73,14 +106,16 @@ header {
 
 .restaurant-item:hover {
     background-color: #f0f0f0;
+    transform: translateY(-3px);
 }
 
 /* Hình ảnh nhà hàng */
 .restaurant-item img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 10px;
     margin-right: 15px;
+    object-fit: cover;
 }
 
 /* Thông tin nhà hàng */
@@ -109,7 +144,7 @@ header {
     font-size: 16px;
     text-align: center;
     color: #777;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 /* Khu vực bản đồ */
@@ -271,9 +306,39 @@ header {
 
 .leaflet-control-zoom {
     position: absolute;
-    top: 0px; /* Điều chỉnh vị trí dọc của nút +- */
-    left: calc(35% + 450px); /* Đẩy nút +- sang bên phải của thanh tìm kiếm (vị trí của sidebar) */
+    top: 20px; /* Điều chỉnh vị trí dọc của nút +- */
+    left: 0; /* Đẩy nút +- sang bên phải của thanh tìm kiếm (vị trí của sidebar) */
     z-index: 1000; /* Giữ nó ở trên cùng các phần tử khác */
+}
+
+/* Định dạng các nút tab */
+.tab-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.tab-button {
+    background-color: white;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.tab-button.active {
+    border-bottom: 2px solid #ff6347;
+    color: #ff6347;
+}
+
+.tab-content {
+    display: none;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
 }
 
 
