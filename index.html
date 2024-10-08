@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gợi Ý Quán Ăn Ngon - TP. Hồ Chí Minh</title>
+    <!-- Thư viện Material Icons cho các biểu tượng -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Font Poppins cho giao diện thân thiện, dễ đọc -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Thư viện Leaflet CSS cho bản đồ -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Thư viện Leaflet Routing Machine cho tính năng tính toán đường đi -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <!-- CSS file của bạn -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    Gợi Ý Quán Ăn Ngon - TP. Hồ Chí Minh
+</header>
+
+<div class="main-container">
+    <!-- Sidebar bên trái hiển thị danh sách nhà hàng -->
+    <div class="sidebar">
+        <input type="text" placeholder="Tìm kiếm món ăn...">
+        <div id="no-results">Không tìm thấy kết quả nào.</div>
+
+        <!-- Danh sách các nhà hàng -->
+        <div class="restaurant-item" data-index="0">
+            <img src="https://via.placeholder.com/80" alt="Phở Bò - Quán A">
+            <div class="restaurant-info">
+                <h4>Phở Bò - Quán A</h4>
+                <p>123 Lê Lợi, Quận 1</p>
+                <div class="ratings">★★★★★</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="1">
+            <img src="https://via.placeholder.com/80" alt="Bún Chả - Quán B">
+            <div class="restaurant-info">
+                <h4>Bún Chả - Quán B</h4>
+                <p>456 Nguyễn Huệ, Quận 1</p>
+                <div class="ratings">★★★★★</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="2">
+            <img src="https://via.placeholder.com/80" alt="Bánh Xèo - Quán C">
+            <div class="restaurant-info">
+                <h4>Bánh Xèo - Quán C</h4>
+                <p>789 Hai Bà Trưng, Quận 3</p>
+                <div class="ratings">★★★★☆</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="3">
+            <img src="https://via.placeholder.com/80" alt="Cơm Tấm - Quán E">
+            <div class="restaurant-info">
+                <h4>Cơm Tấm - Quán E</h4>
+                <p>234 Phan Xích Long, Quận Phú Nhuận</p>
+                <div class="ratings">★★★★☆</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="4">
+            <img src="https://via.placeholder.com/80" alt="Mì Quảng - Quán D">
+            <div class="restaurant-info">
+                <h4>Mì Quảng - Quán D</h4>
+                <p>678 Lý Thường Kiệt, Quận 10</p>
+                <div class="ratings">★★★★★</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="5">
+            <img src="https://via.placeholder.com/80" alt="Bánh Mì - Quán F">
+            <div class="restaurant-info">
+                <h4>Bánh Mì - Quán F</h4>
+                <p>456 Nguyễn Trãi, Quận 5</p>
+                <div class="ratings">★★★★☆</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="6">
+            <img src="https://via.placeholder.com/80" alt="Bún Thịt Nướng - Quán G">
+            <div class="restaurant-info">
+                <h4>Bún Thịt Nướng - Quán G</h4>
+                <p>789 Phạm Văn Đồng, Quận Bình Thạnh</p>
+                <div class="ratings">★★★★★</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="7">
+            <img src="https://via.placeholder.com/80" alt="Chả Giò - Quán H">
+            <div class="restaurant-info">
+                <h4>Chả Giò - Quán H</h4>
+                <p>234 Hai Bà Trưng, Quận 3</p>
+                <div class="ratings">★★★★★</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="8">
+            <img src="https://via.placeholder.com/80" alt="Lẩu Thái - Quán I">
+            <div class="restaurant-info">
+                <h4>Lẩu Thái - Quán I</h4>
+                <p>678 Nguyễn Văn Trỗi, Quận Phú Nhuận</p>
+                <div class="ratings">★★★★☆</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="9">
+            <img src="https://via.placeholder.com/80" alt="Mì Ý - Quán J">
+            <div class="restaurant-info">
+                <h4>Mì Ý - Quán J</h4>
+                <p>789 Đinh Tiên Hoàng, Quận Bình Thạnh</p>
+                <div class="ratings">★★★★☆</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="10">
+            <img src="https://via.placeholder.com/80" alt="Bánh Cuốn - Quán K">
+            <div class="restaurant-info">
+                <h4>Bánh Cuốn - Quán K</h4>
+                <p>123 Bà Huyện Thanh Quan, Quận 10</p>
+                <div class="ratings">★★★★★</div>
+            </div>
+        </div>
+
+
+        <div class="restaurant-item" data-index="11">
+            <img src="https://via.placeholder.com/80" alt="Gỏi Cuốn - Quán L">
+            <div class="restaurant-info">
+                <h4>Gỏi Cuốn - Quán L</h4>
+                <p>789 Nguyễn Huệ, Quận 1</p>
+                <div class="ratings">★★★★☆</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Khu vực bản đồ -->
+    <div class="map">
+        <div id="map"></div>
+
+        <!-- Nút bộ lọc đè lên bản đồ -->
+        <div class="search-filter-container">
+            <div class="filter-buttons">
+                <button><span class="material-icons">star</span> Xếp hạng</button>
+                <button><span class="material-icons">schedule</span> Giờ</button>
+                <button><span class="material-icons">filter_list</span> Tất cả bộ lọc</button>
+            </div>
+        </div>
+     
+        <!-- Nút quay lại vị trí hiện tại -->
+        <div class="location-button">
+            <img src="https://via.placeholder.com/50" id="currentLocationButton" alt="Current Location">
+        </div>
+
+        <!-- Modal chi tiết nhà hàng -->
+        <div class="detail-panel" id="detailPanel">
+            <img id="restaurantImage" src="" alt="">
+            <h3 id="restaurantName"></h3>
+            <p id="restaurantAddress"></p>
+            <p id="restaurantRating"></p>
+            <p id="restaurantPrice"></p>
+
+            <div class="action-buttons">
+                <button id="directionButton"><span class="material-icons">directions</span> Đường đi</button>
+                <button id="saveButton"><span class="material-icons">bookmark</span> Lưu</button>
+                <button id="sendToPhoneButton"><span class="material-icons">send</span> Gửi tới điện thoại</button>
+                <button id="shareButton"><span class="material-icons">share</span> Chia sẻ</button>
+            </div>
+        </div>
+
+        <!-- Overlay làm mờ nền khi modal mở -->
+        <div class="modal-overlay" id="modalOverlay"></div>
+    </div>
+</div>
+
+<!-- Thư viện Leaflet.js và Routing Machine -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+<!-- JavaScript file của bạn -->
+<script src="app.js"></script>
+
+</body>
+</html>
