@@ -39,34 +39,58 @@ header {
     top: 65px;
     left: 20;
     width: 30%;
-    max-width: 450px;
+    max-width: 442px;
     padding: 15px;
     z-index: 1001;
     box-shadow: none;
-
 }
 /* Định dạng ô tìm kiếm */
 #searchInput {
     width: 100%;
     padding: 10px;
-    border: 2px solid #333; /* Thêm viền đậm hơn */
+    border: 2px solid #9f9d9d; /* Thêm viền đậm hơn */
     border-radius: 25px;
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s ease-in-out;
-    margin-left: 50px; /* Dịch sang phải 1 chút */
-    background-color: none; /* Nền trắng */
+    margin-left: 45px; /* Dịch sang phải 1 chút */
+    background-color: white; /* Nền trắng */
     box-shadow: none;
 }
+/* Khi nhấp vào ô tìm kiếm, viền sẽ đậm hơn */
+#searchInput:focus {
+    border-color: #333; /* Viền đậm hơn khi được chọn */
+    border-radius: 25px; /* Giữ bo góc khi focus */
+    box-shadow: 0 0 5px rgba(21, 0, 254, 0.2); /* Hiệu ứng đổ bóng khi chọn */
+}
+
+/* Khi có thông tin được nhập vào, viền sẽ biến mất và bo góc cũng biến mất */
+#searchInput:not(:placeholder-shown) {
+    border-color: transparent; /* Viền trở về không màu */
+    border-radius: 0px; /* Không bo góc khi có nội dung */
+    box-shadow: none; /* Không có đổ bóng */
+}
+
+/* Khi sidebar đang hiển thị, đảm bảo ô tìm kiếm không có bo góc */
+.sidebar.active + .search-input-container #searchInput {
+    border-radius: 0px; /* Không bo góc khi sidebar đang hiển thị */
+}
+
+/* Khi sidebar bị ẩn, ô tìm kiếm trở lại trạng thái ban đầu */
+.sidebar:not(.active) + .search-input-container #searchInput {
+    border-radius: 25px; /* Quay lại bo góc khi sidebar không hiển thị */
+    border-color: #ffffff; /* Viền trở lại như ban đầu */
+}
+
 /* Sidebar được làm mượt và bo góc */
 .sidebar {
     display: none;
     position: fixed;
-    top: 75px; 
+    top: 120px; 
     left: 20;
-    width: 30%;
-    max-width: 450px;
-    height: calc(100% - 130px);
+    width: calc(100% - 70px); /* Đảm bảo sidebar có cùng kích thước với ô tìm kiếm, trừ đi khoảng cách lề */
+    max-width: 425px;
+    height: calc(100% - 200px);
     background-color: white;
     border-right: 1px solid #ddd;
     padding: 20px;
@@ -74,7 +98,6 @@ header {
     z-index: 1000;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    border-radius: 25px;
     margin-left: 60px; /* Dịch sang phải một chút */
 }
 /* Hiển thị sidebar khi có kết quả tìm kiếm */
@@ -82,7 +105,10 @@ header {
     display: block;
     transform: translateX(0);
 }
-
+/* Khi sidebar hiện lên, ô tìm kiếm và sidebar sẽ không còn bo góc */
+.sidebar.active, #searchInput:not(:placeholder-shown) {
+    border-radius: 0px;
+}
 /* Phần không tìm thấy kết quả */
 #no-results {
     display: none;
@@ -306,7 +332,7 @@ header {
 
 .leaflet-control-zoom {
     position: absolute;
-    top: 20px; /* Điều chỉnh vị trí dọc của nút +- */
+    top: 50px; /* Điều chỉnh vị trí dọc của nút +- */
     left: 0; /* Đẩy nút +- sang bên phải của thanh tìm kiếm (vị trí của sidebar) */
     z-index: 1000; /* Giữ nó ở trên cùng các phần tử khác */
 }
