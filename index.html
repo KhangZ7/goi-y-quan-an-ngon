@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gợi Ý Quán Ăn Ngon - TP. Hồ Chí Minh</title>
+    <title>Hệ Thống Flavory</title>
     <!-- Thư viện Material Icons cho các biểu tượng -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Font Poppins cho giao diện thân thiện, dễ đọc -->
@@ -14,14 +14,137 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <!-- CSS file của bạn -->
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
-
+    <script>
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        var isLoggedIn = sessionStorage.getItem('loggedIn'); // Kiểm tra phiên đăng nhập trong sessionStorage
+    
+        if (!isLoggedIn) {
+            // Nếu người dùng chưa đăng nhập, chuyển hướng sang trang login-signup.html
+            window.location.href = 'login.html';
+        }
+        else{
+            // Lấy tên người dùng từ sessionStorage và hiển thị
+            const loggedInUser = sessionStorage.getItem('username');
+            // Hiển thị tên người dùng đã đăng nhập
+            document.getElementById('user-name').innerText = loggedInUser;
+        }
+    </script>
 <header>
-    Gợi Ý Quán Ăn Ngon - TP. Hồ Chí Minh
+    Hệ Thống Flavory
+    <div class="user-info" id="user-info">
+        <img src="user.png" alt="User Icon" class="user-icon">
+        <div class="user-details">
+            <span class="user-role">Tài khoản</span>
+            <div class="user-name-dropdown">
+                <span id="user-name">Tên Người Dùng</span>
+                <span class="dropdown-arrow">&#9660;</span>
+                <div class="dropdown-content">
+                    <a href="#"><i class="material-icons">settings</i> Quản lý cửa hàng</a>
+                    <a href="#" id="historyUsage"><i class="material-icons">history</i> Lịch Sử Sử Dụng</a>
+                    <a href="#"><i class="material-icons">account_circle</i> Tài khoản của tôi</a>
+                    <a href="#" id="logout"><i class="material-icons">logout</i> Đăng Xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 <div class="main-container">
+<!-- Phần Sidebar "Lịch Sử Sử Dụng" -->
+<div id="historyUsageSidebar" style="display: none; padding: 20px;">
+    <h3 class="history-title">Lịch Sử Sử Dụng</h3>
+
+    <!-- Chọn lọc theo thời gian -->
+    <div class="filter-section">
+        <label for="filterDate">Thời gian:</label>
+        <select id="filterDate" onchange="filterHistoryByDate()">
+            <option value="all">Tất cả</option>
+            <option value="today">Hôm nay</option>
+            <option value="week">Tuần này</option>
+            <option value="month">Tháng này</option>
+        </select>
+    </div>
+
+    <!-- Danh sách Lịch Sử Sử Dụng -->
+    <div class="history-item" data-date="2024-11-01">
+        <h4>Phở Bò Huỳnh Đức</h4>
+        <p>Ngày: 01/11/2024</p>
+        <div class="history-details">
+            <p>Địa chỉ: 123 Lê Lợi, Quận 1</p>
+            <p>Dịch vụ: Ăn tại chỗ</p>
+            <p>Ưu đãi: Giảm 10%</p>
+        </div>
+    </div>
+
+    <div class="history-item" data-date="2024-10-25">
+        <h4>Bún Chả Hoài</h4>
+        <p>Ngày: 25/10/2024</p>
+        <div class="history-details">
+            <p>Địa chỉ: 456 Nguyễn Huệ, Quận 1</p>
+            <p>Dịch vụ: Giao hàng tận nơi</p>
+            <p>Ưu đãi: Miễn phí vận chuyển</p>
+        </div>
+    </div>
+
+    <div class="history-item" data-date="2024-10-15">
+        <h4>Bánh Xèo Tú</h4>
+        <p>Ngày: 15/10/2024</p>
+        <div class="history-details">
+            <p>Địa chỉ: 789 Hai Bà Trưng, Quận 3</p>
+            <p>Dịch vụ: Mang đi</p>
+            <p>Ưu đãi: Giảm 15% cho lần đầu</p>
+        </div>
+    </div>
+    <div class="history-item" onclick="toggleHistoryDetails(this)">
+        <h4>Bún Thịt Nướng Cô Hoa</h4>
+        <p>Ngày: 20/09/2024</p>
+        <div class="history-details">
+            <p>Địa chỉ: 789 Phạm Văn Đồng, Quận Bình Thạnh</p>
+            <p>Dịch vụ: Ăn tại chỗ</p>
+            <p>Ưu đãi: Giảm 10%</p>
+        </div>
+    </div>
+
+    <div class="history-item" onclick="toggleHistoryDetails(this)">
+        <h4>Chả Giò Chú Ba</h4>
+        <p>Ngày: 12/09/2024</p>
+        <div class="history-details">
+            <p>Địa chỉ: 234 Hai Bà Trưng, Quận 3</p>
+            <p>Dịch vụ: Giao hàng tận nơi</p>
+            <p>Ưu đãi: Miễn phí vận chuyển</p>
+        </div>
+    </div>
+
+    <div class="history-item" onclick="toggleHistoryDetails(this)">
+        <h4>Lẩu Thái Cô Ba</h4>
+        <p>Ngày: 05/09/2024</p>
+        <div class="history-details">
+            <p>Địa chỉ: 678 Nguyễn Văn Trỗi, Quận Phú Nhuận</p>
+            <p>Dịch vụ: Ăn tại chỗ</p>
+            <p>Ưu đãi: Giảm 15%</p>
+        </div>
+    </div>
+
+    <div class="history-item" onclick="toggleHistoryDetails(this)">
+        <h4>Mì Ý Bumma</h4>
+        <p>Ngày: 30/08/2024</p>
+        <div class="history-details">
+            <p>Địa chỉ: 789 Đinh Tiên Hoàng, Quận Bình Thạnh</p>
+            <p>Dịch vụ: Mang đi</p>
+            <p>Ưu đãi: Giảm giá 10%</p>
+        </div>
+    </div>
+    <!-- Thêm nhiều lịch sử mẫu khác nếu cần -->
+</div>
+
+
+    
+
+
     <div class="search-input-container">
         <input type="text" id="searchInput" placeholder="Tìm kiếm món ăn...">
     </div>
@@ -31,9 +154,9 @@
 
         <!-- Danh sách các nhà hàng -->
         <div class="restaurant-item" data-index="0">
-            <img src="https://via.placeholder.com/80" alt="Phở Bò - Quán A">
+            <img src="Pho-huynh-duc.png" alt="Phở Bò Huỳnh Đức">
             <div class="restaurant-info">
-                <h4>Phở Bò - Quán A</h4>
+                <h4>Phở Bò Huỳnh Đức</h4>
                 <p>123 Lê Lợi, Quận 1</p>
                 <div class="ratings">★★★★★</div>
             </div>
@@ -41,19 +164,19 @@
 
 
         <div class="restaurant-item" data-index="1">
-            <img src="https://via.placeholder.com/80" alt="Bún Chả - Quán B">
+            <img src="bun-cha.png" alt="Bún Chả Hoài">
             <div class="restaurant-info">
-                <h4>Bún Chả - Quán B</h4>
+                <h4>Bún Chả Hoài</h4>
                 <p>456 Nguyễn Huệ, Quận 1</p>
-                <div class="ratings">★★★★★</div>
+                <div class="ratings">★★★★☆</div>
             </div>
         </div>
 
 
         <div class="restaurant-item" data-index="2">
-            <img src="https://via.placeholder.com/80" alt="Bánh Xèo - Quán C">
+            <img src="https://via.placeholder.com/80" alt="Bánh Xèo Tú">
             <div class="restaurant-info">
-                <h4>Bánh Xèo - Quán C</h4>
+                <h4>Bánh Xèo Tú</h4>
                 <p>789 Hai Bà Trưng, Quận 3</p>
                 <div class="ratings">★★★★☆</div>
             </div>
@@ -61,9 +184,9 @@
 
 
         <div class="restaurant-item" data-index="3">
-            <img src="https://via.placeholder.com/80" alt="Cơm Tấm - Quán E">
+            <img src="com-tam-suon.png" alt="Cơm Tấm Sà Bì Chưởng">
             <div class="restaurant-info">
-                <h4>Cơm Tấm - Quán E</h4>
+                <h4>Cơm Tấm Sà Bì Chưởng</h4>
                 <p>234 Phan Xích Long, Quận Phú Nhuận</p>
                 <div class="ratings">★★★★☆</div>
             </div>
@@ -71,9 +194,9 @@
 
 
         <div class="restaurant-item" data-index="4">
-            <img src="https://via.placeholder.com/80" alt="Mì Quảng - Quán D">
+            <img src="https://via.placeholder.com/80" alt="Mì Quảng Hữu Nghị">
             <div class="restaurant-info">
-                <h4>Mì Quảng - Quán D</h4>
+                <h4>Mì Quảng Hữu Nghị</h4>
                 <p>678 Lý Thường Kiệt, Quận 10</p>
                 <div class="ratings">★★★★★</div>
             </div>
@@ -81,9 +204,9 @@
 
 
         <div class="restaurant-item" data-index="5">
-            <img src="https://via.placeholder.com/80" alt="Bánh Mì - Quán F">
+            <img src="banh-mi.png" alt="Bánh Mì Hồng Ngọc">
             <div class="restaurant-info">
-                <h4>Bánh Mì - Quán F</h4>
+                <h4>Bánh Mì Hồng Ngọc</h4>
                 <p>456 Nguyễn Trãi, Quận 5</p>
                 <div class="ratings">★★★★☆</div>
             </div>
@@ -91,9 +214,9 @@
 
 
         <div class="restaurant-item" data-index="6">
-            <img src="https://via.placeholder.com/80" alt="Bún Thịt Nướng - Quán G">
+            <img src="https://via.placeholder.com/80" alt="Bún Thịt Nướng Cô Hoa">
             <div class="restaurant-info">
-                <h4>Bún Thịt Nướng - Quán G</h4>
+                <h4>Bún Thịt Nướng Cô Hoa</h4>
                 <p>789 Phạm Văn Đồng, Quận Bình Thạnh</p>
                 <div class="ratings">★★★★★</div>
             </div>
@@ -101,9 +224,9 @@
 
 
         <div class="restaurant-item" data-index="7">
-            <img src="https://via.placeholder.com/80" alt="Chả Giò - Quán H">
+            <img src="https://via.placeholder.com/80" alt="Chả Giò Chú Ba">
             <div class="restaurant-info">
-                <h4>Chả Giò - Quán H</h4>
+                <h4>Chả Giò Chú Ba</h4>
                 <p>234 Hai Bà Trưng, Quận 3</p>
                 <div class="ratings">★★★★★</div>
             </div>
@@ -111,9 +234,9 @@
 
 
         <div class="restaurant-item" data-index="8">
-            <img src="https://via.placeholder.com/80" alt="Lẩu Thái - Quán I">
+            <img src="https://via.placeholder.com/80" alt="Lẩu Thái Cô Ba">
             <div class="restaurant-info">
-                <h4>Lẩu Thái - Quán I</h4>
+                <h4>Lẩu Thái Cô Ba</h4>
                 <p>678 Nguyễn Văn Trỗi, Quận Phú Nhuận</p>
                 <div class="ratings">★★★★☆</div>
             </div>
@@ -121,9 +244,9 @@
 
 
         <div class="restaurant-item" data-index="9">
-            <img src="https://via.placeholder.com/80" alt="Mì Ý - Quán J">
+            <img src="https://via.placeholder.com/80" alt="Mì Ý Bumma">
             <div class="restaurant-info">
-                <h4>Mì Ý - Quán J</h4>
+                <h4>Mì Ý Bumma</h4>
                 <p>789 Đinh Tiên Hoàng, Quận Bình Thạnh</p>
                 <div class="ratings">★★★★☆</div>
             </div>
@@ -131,9 +254,9 @@
 
 
         <div class="restaurant-item" data-index="10">
-            <img src="https://via.placeholder.com/80" alt="Bánh Cuốn - Quán K">
+            <img src="https://via.placeholder.com/80" alt="Bánh Cuốn Tuyết">
             <div class="restaurant-info">
-                <h4>Bánh Cuốn - Quán K</h4>
+                <h4>Bánh Cuốn Tuyết</h4>
                 <p>123 Bà Huyện Thanh Quan, Quận 10</p>
                 <div class="ratings">★★★★★</div>
             </div>
@@ -141,9 +264,9 @@
 
 
         <div class="restaurant-item" data-index="11">
-            <img src="https://via.placeholder.com/80" alt="Gỏi Cuốn - Quán L">
+            <img src="https://via.placeholder.com/80" alt="Gỏi Cuốn Bà Cụ">
             <div class="restaurant-info">
-                <h4>Gỏi Cuốn - Quán L</h4>
+                <h4>Gỏi Cuốn Bà Cụ</h4>
                 <p>789 Nguyễn Huệ, Quận 1</p>
                 <div class="ratings">★★★★☆</div>
             </div>
@@ -166,9 +289,12 @@
      
         <!-- Nút quay lại vị trí hiện tại -->
         <div class="location-button">
-            <img src="https://via.placeholder.com/50" id="currentLocationButton" alt="Current Location">
+            <img src="vi-tri-hien-tai.png" id="currentLocationButton" alt="Current Location">
         </div>
-
+        <!-- Nút hủy đường đi nằm bên ngoài phần bản đồ -->
+        <button id="cancelRouteButton" style="display: none;">
+            Hủy đường đi
+        </button>
         <!-- Modal chi tiết nhà hàng -->
         <div class="detail-panel" id="detailPanel">
             <img id="restaurantImage" src="" alt="">
@@ -182,6 +308,8 @@
                 <button class="tab-button active" data-tab="overview">Tổng quan</button>
                 <button class="tab-button" data-tab="reviews">Bài đánh giá</button>
                 <button class="tab-button" data-tab="info">Giới thiệu</button>
+                <button class="tab-button" data-tab="menu">Thực đơn</button>
+                <button class="tab-button" data-tab="sale">Ưu đãi</button>
             </div>
         
             <!-- Nội dung của các tab -->
@@ -203,15 +331,75 @@
             </div>
         
             <div id="reviews" class="tab-content">
-                <!-- Nội dung đánh giá nhà hàng -->
-                <p>Chưa có bài đánh giá</p>
+                <h3 class="rating-title">Xếp hạng và đánh giá</h3>
+                <div class="user-rating">
+                    <img src="user.png" alt="User Icon" class="user-icon"> <!-- Replace 'user.png' with the actual user icon source -->
+                    <div class="user-rating-info">
+                        <div class="star-rating">
+                            <span class="material-icons">star_border</span>
+                            <span class="material-icons">star_border</span>
+                            <span class="material-icons">star_border</span>
+                            <span class="material-icons">star_border</span>
+                            <span class="material-icons">star_border</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tổng quan về đánh giá -->
+                <div class="review-summary">
+                    <h3>Chưa có bài đánh giá</h3>
+                </div>
+                
+                <!-- Danh sách các bài đánh giá -->
+                <div class="review-list">
+                    <!-- Các bài đánh giá sẽ được thêm vào đây qua JavaScript -->
+                </div>
             </div>
         
             <div id="info" class="tab-content">
                 <!-- Phần giới thiệu nhà hàng -->
-                <p>Thông tin giới thiệu nhà hàng sẽ được cập nhật sau.</p>
+                <p>Cơm tấm Sà Bì Chưởng có địa chỉ 179 Trần Bình Trọng, phường 3, quận 5 Sài Gòn chính là quán cơm tấm tâm huyết của bộ ba streamer đình đám trên mạng xã hội: Độ Mixi, PewPew và Xemesis cùng hợp tác kinh doanh. Quán chính thức đi vào hoạt động vào ngày 18/6/ 2021.</p>
             </div>
+            <!-- Phần thực đơn mới -->
+            <div id="menu" class="tab-content">
+                <h3>Các món ăn nổi bật</h3>
+            <ul id="restaurantMenu">
+                <!-- Các món ăn sẽ được thêm vào đây -->
+            </ul>
+                <h3 class="menu-title">Thực đơn</h3>
+                <div class="menu-gallery-horizontal">
+                    <img src="menu1.png" alt="Món ăn 1" class="menu-item-image">
+                    <img src="menu2.png" alt="Món ăn 2" class="menu-item-image">
+                    <img src="menu3.png" alt="Món ăn 3" class="menu-item-image">
+                </div>
+            </div>
+            <div id="sale" class="tab-content">
+                <h3 class="offer-title">Ưu đãi</h3>
+                <div class="offer-list">
+                    <div class="offer-item">
+                        <img src="sum-hop.png" alt="Combo Sườn Cốt Lết Đặc Biệt" class="offer-image">
+                        <div class="offer-details">
+                            <h4 class="offer-name">Giảm Giá Mùa Halloween</h4>
+                            <p class="offer-date">31/10/2024</p>
+                            <p class="offer-info">Giảm giá 20% cho mọi combo khi đặt hàng trực tuyến.</p>
+                        </div>
+                        <button class="offer-button">Nhận</button>
+                    </div>
+                    <div class="offer-item">
+                        <img src="halloween.png" alt="Combo Sườn Cốt Lết Đặc Biệt" class="offer-image">
+                        <div class="offer-details">
+                            <h4 class="offer-name">Cuối Tuần Sum Họp</h4>
+                            <p class="offer-date">02/11/2024 - 3/11/2024</p>
+                            <p class="offer-info">Giảm ngay 30% cho tất cả các món trong thực đơn khi đi nhóm từ 4 người trở lên.</p>
+                        </div>
+                        <button class="offer-button">Nhận</button>
+                    </div>
+                </div>
+            </div>
+            
+            
         </div>
+        
         
         
         

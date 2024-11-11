@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập & Đăng Ký - Gợi Ý Quán Ăn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesLogin.css">
+</head>
+<body>
+
+<div class="login-container">
+    <!-- Phần Form -->
+    <div class="form-section">
+        <!-- Nút chuyển giữa đăng nhập và đăng ký -->
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="showForm('login-form')">Đăng Nhập</button>
+            <button class="tab-button" onclick="showForm('signup-form')">Đăng Ký</button>
+        </div>
+
+        <!-- Form đăng nhập -->
+        <div class="form login-form active" id="login-form">
+            <h2>Đăng Nhập</h2>
+            <form id="loginForm">
+                <input type="text" class="input-field" placeholder="Email hoặc số điện thoại" required pattern="^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|[0-9]{10})$" title="Vui lòng nhập email hợp lệ hoặc số điện thoại 10 chữ số">
+                <input type="password" class="input-field" placeholder="Mật khẩu" required>
+                <button type="submit" class="submit-btn">Đăng Nhập</button>
+            </form>
+        </div>
+
+        <!-- Form đăng ký -->
+        <div class="form signup-form" id="signup-form">
+            <h2>Đăng Ký</h2>
+            <form id="signupForm">
+                <input type="text" class="input-field" placeholder="Tên tài khoản" required>
+                <input type="email" class="input-field" placeholder="Email" required>
+                <input type="tel" class="input-field" placeholder="Số điện thoại" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại hợp lệ" required>
+                <input type="password" class="input-field" placeholder="Mật khẩu" required>
+                <input type="password" class="input-field" placeholder="Xác nhận mật khẩu" required>
+                <button type="submit" class="submit-btn">Đăng Ký</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Phần hình minh họa -->
+    <div class="illustration-section">
+        <img src="logo1.jpg" alt="Gợi Ý Quán Ăn Illustration">
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

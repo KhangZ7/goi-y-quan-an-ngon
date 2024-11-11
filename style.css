@@ -41,7 +41,7 @@ header {
     width: 30%;
     max-width: 442px;
     padding: 15px;
-    z-index: 1001;
+    z-index: 500;
     box-shadow: none;
 }
 /* Định dạng ô tìm kiếm */
@@ -367,6 +367,618 @@ header {
     display: block;
 }
 
+/* Định dạng cho từng món ăn trong thực đơn */
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Căn nội dung về phía trái */
+    padding: 15px; /* Giảm padding */
+    background-color: white;
+    border-radius: 8px; /* Giảm độ bo góc */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 15px; /* Giảm khoảng cách giữa các mục */
+}
+
+.menu-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Hình ảnh món ăn */
+.menu-item img {
+    width: 25%; /* Giảm kích thước ảnh xuống khoảng 25% chiều rộng khung */
+    height: auto;
+    border-radius: 8px; /* Giảm độ bo góc của ảnh */
+    margin-right: 10px; /* Giảm khoảng cách giữa ảnh và nội dung */
+    object-fit: cover;
+}
+
+/* Thông tin món ăn */
+.menu-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.menu-info h4 {
+    margin: 0;
+    font-size: 18px; /* Giảm kích thước chữ của tên món ăn */
+    font-weight: bold;
+    color: #333;
+}
+
+.menu-info p {
+    margin: 4px 0; /* Giảm khoảng cách giữa các dòng nội dung */
+    font-size: 14px; /* Giảm kích thước chữ của mô tả món ăn */
+    color: #777;
+}
 
 
 
+
+/* CSS đã cập nhật để hỗ trợ việc hiển thị phần đánh giá */
+.review-summary {
+    margin-bottom: 20px;
+}
+
+.review-summary h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.rating-distribution {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rating-bar {
+    display: inline-block;
+    width: 150px;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.rating-bar span {
+    display: block;
+    height: 100%;
+    background-color: #ffa41b;
+    border-radius: 5px;
+}
+
+/* Định dạng tổng quan bài đánh giá */
+.review-summary {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.rating-bar {
+    display: inline-block;
+    width: 150px;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.rating-bar span {
+    display: block;
+    height: 100%;
+    background-color: #ffa41b;
+    border-radius: 5px;
+}
+
+/* Định dạng danh sách bài đánh giá */
+.review-list {
+    margin-top: 20px;
+}
+
+.review-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-item img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+}
+
+.review-info {
+    flex-grow: 1;
+}
+
+.review-info h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.review-info .stars {
+    color: #ffa41b;
+}
+
+.review-time {
+    font-size: 12px;
+    color: #777;
+    margin-left: 10px;
+}
+
+.review-item p {
+    margin: 10px 0;
+}
+
+/* Phần lọc đánh giá */
+.review-filters {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.review-filters button {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.review-filters button:hover {
+    background-color: #ddd;
+}
+.user-info {
+    position: absolute;
+    top: 20px; /* Điều chỉnh khoảng cách từ trên xuống */
+    right: 50px; /* Điều chỉnh khoảng cách từ phải vào */
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa các phần tử bên trong */
+    cursor: pointer;
+}
+
+.user-icon {
+    width: 35px; /* Tăng kích thước để biểu tượng rõ nét hơn */
+    height: 35px;
+    border-radius: 50%; /* Giữ bo tròn nếu là ảnh người dùng */
+    margin-right: 8px; /* Khoảng cách giữa biểu tượng và tên người dùng */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    border: 2px solid #fff; /* Viền trắng để nổi bật biểu tượng */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Đổ bóng để tạo hiệu ứng nổi */
+    background-color: #f0f0f0; /* Màu nền nếu không có ảnh */
+}
+
+
+.user-details {
+    display: flex;
+    align-items: flex-start; /* Căn lề trái */
+    flex-direction: column;
+}
+
+.user-role {
+    font-size: 10px;
+    color: #666;
+    line-height: 1.2;
+}
+.user-name-dropdown {
+    display: flex;
+    align-items: center; /* Căn giữa tên và mũi tên theo chiều dọc */
+}
+
+#user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.dropdown-arrow {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #333;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    min-width: 300px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    padding: 20px 0;
+}
+
+.dropdown-content a {
+    color: #000;
+    padding: 14px 24px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdown-content a i {
+    margin-right: 12px;
+    color: #c0392b;  /* Màu đỏ cho biểu tượng */
+    font-size: 22px; /* Giữ nguyên kích thước biểu tượng */
+}
+
+.user-name-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.user-name-dropdown a#logout {
+    color: red;
+}
+/* Phần chứa xếp hạng và đánh giá của người dùng */
+.user-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.user-rating p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+.rating-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+    margin-bottom: 10px;
+}
+/* Biểu tượng người dùng */
+.user-rating .user-icon {
+    width: 50px; /* Tăng kích thước để dễ nhìn */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc; /* Viền cho biểu tượng để nổi bật hơn */
+    margin-right: 10px;
+}
+
+/* Phần chứa đánh giá sao */
+.user-rating-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Định dạng các ngôi sao đánh giá */
+.star-rating .material-icons {
+    font-size: 24px; /* Tăng kích thước ngôi sao */
+    color: #ffa41b; /* Màu vàng cho ngôi sao */
+    cursor: pointer; /* Con trỏ chuột thay đổi khi hover vào ngôi sao */
+    transition: color 0.3s;
+}
+
+.star-rating .material-icons:hover,
+.star-rating .material-icons.selected {
+    color: #ff6347; /* Đổi màu khi chọn */
+}
+.menu-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+    text-align: left; /* Căn lề trái */
+}
+
+.menu-gallery-horizontal {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* Thanh cuộn ngang */
+    padding: 10px 0;
+    white-space: nowrap;
+}
+
+.menu-item-image {
+    width: calc(33.33% - 10px); /* Đảm bảo cả ba ảnh vừa một hàng */
+    height: auto; /* Giữ tỷ lệ gốc của ảnh */
+    max-height: 450px; /* Đảm bảo ảnh không vượt quá chiều cao */
+    object-fit: contain; /* Giữ nguyên toàn bộ nội dung của ảnh */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0; /* Nền xám nhạt để tạo khung */
+}
+/* Tiêu đề cho phần ưu đãi */
+.offer-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Danh sách các ưu đãi */
+.offer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* Phần tử từng ưu đãi */
+.offer-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    height: 160px; /* Chiều cao hợp lý để vừa ảnh và nội dung */
+}
+
+/* Định dạng ảnh ưu đãi */
+.offer-image {
+    flex-basis: 30%; /* Ảnh chiếm 30% khung */
+    max-width: 100px; /* Đảm bảo không vượt quá 30% */
+    height: auto; /* Đảm bảo tỉ lệ ảnh */
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+/* Thông tin chi tiết ưu đãi */
+.offer-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Đẩy nút nhận xuống cuối khung */
+    flex-grow: 1;
+}
+
+.offer-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.offer-date {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.offer-info {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0 0;
+    margin-bottom: 20px; /* Tạo khoảng cách dưới phần mô tả */
+}
+
+/* Nút nhận ưu đãi */
+.offer-button {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end; /* Căn nút nhận về góc dưới cùng bên phải */
+}
+
+.offer-button:hover {
+    background-color: #e5533d;
+}
+/* Phần sidebar lịch sử sử dụng */
+#historyUsageSidebar {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    max-height: 80%;
+    overflow-y: auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Tiêu đề của phần lịch sử sử dụng */
+.history-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Phần tử lịch sử mẫu */
+.history-item {
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.history-item:hover {
+    background-color: #f1f1f1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Chi tiết từng mục lịch sử */
+.history-item h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #555;
+}
+
+.history-item p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #777;
+}
+
+/* Phần chi tiết lịch sử mở rộng */
+.history-details {
+    display: none;
+    padding-top: 10px;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+}
+
+/* Hiệu ứng mở rộng chi tiết lịch sử */
+.history-item.active .history-details {
+    display: block;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none; /* Ẩn overlay mặc định */
+}
+
+/* Định dạng cho phần sidebar lịch sử sử dụng */
+#historyUsageSidebar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    display: none; /* Ẩn sidebar lịch sử sử dụng khi không cần thiết */
+}
+
+/* Tiêu đề lịch sử */
+.history-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+/* Định dạng cho phần bộ lọc thời gian */
+.filter-section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-section label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+}
+
+.filter-section select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+    cursor: pointer;
+    background-color: #f7f7f7;
+    transition: border-color 0.3s;
+}
+
+.filter-section select:hover {
+    border-color: #888;
+}
+
+/* Định dạng cho từng mục lịch sử */
+.history-item {
+    padding: 15px;
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.history-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f0f8ff; /* Nền sáng hơn khi hover */
+}
+
+.history-item h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.history-item p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Phần chi tiết bên trong mỗi lịch sử */
+.history-details {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+    display: none; /* Ẩn chi tiết ban đầu */
+}
+
+/* Hiệu ứng khi nhấp để xem chi tiết */
+.history-item.active .history-details {
+    display: block; /* Hiển thị chi tiết khi mở */
+}
+.leaflet-popup-content {
+    font-size: 18px; /* Tăng kích thước chữ */
+}
+.leaflet-routing-container {
+    font-size: 16px; /* Tăng kích thước chữ */
+    max-width: 800px; /* Tăng chiều rộng bảng để dễ nhìn */
+    padding: 10px; /* Tăng khoảng cách nội dung bên trong */
+}
+
+.leaflet-routing-instructions {
+    line-height: 1.6; /* Tăng khoảng cách giữa các dòng */
+}
