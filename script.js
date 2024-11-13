@@ -12,7 +12,7 @@ function createAdminAccount() {
     let users = JSON.parse(localStorage.getItem('users')) || [];
 
     // Kiểm tra xem admin đã tồn tại chưa
-    const adminExists = users.find(user => user.username === 'Trịnh Vỹ Khang');
+    const adminExists = users.find(user => user.username === 'User');
 
     if (!adminExists) {
         // Thêm tài khoản admin
